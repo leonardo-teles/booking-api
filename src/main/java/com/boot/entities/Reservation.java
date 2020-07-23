@@ -26,6 +26,8 @@ public class Reservation implements Serializable {
 	
 	private Date date;
 	
+	private String turn;
+	
 	@ManyToOne
 	@JoinColumn(name = "restaurant_id")
 	private Restaurant restaurant;
@@ -60,6 +62,14 @@ public class Reservation implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	public String getTurn() {
+		return turn;
+	}
+
+	public void setTurn(String turn) {
+		this.turn = turn;
 	}
 
 	public Restaurant getRestaurant() {
