@@ -1,4 +1,4 @@
-package com.boot.controller;
+package com.boot.controllers;
 
 public class RestaurantController {
 

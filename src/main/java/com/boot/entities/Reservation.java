@@ -1,4 +1,5 @@
-package com.boot.entity;
+package com.boot.entities;
+
 
 public class Reservation {
 

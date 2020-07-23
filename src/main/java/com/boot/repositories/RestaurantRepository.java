@@ -1,4 +1,4 @@
-package com.boot.repository;
+package com.boot.repositories;
 
 public class RestaurantRepository {
 

@@ -1,4 +1,4 @@
-package com.boot.service;
+package com.boot.services;
 
 public class RestaurantService {
 
