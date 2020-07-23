@@ -30,4 +30,43 @@ public class Reservation implements Serializable {
 	@JoinColumn(name = "restaurant_id")
 	private Restaurant restaurant;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getLocator() {
+		return locator;
+	}
+
+	public void setLocator(String locator) {
+		this.locator = locator;
+	}
+
+	public Long getPerson() {
+		return person;
+	}
+
+	public void setPerson(Long person) {
+		this.person = person;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
 }
