@@ -1,6 +1,8 @@
 package com.boot.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -20,4 +22,7 @@ public class Restaurant implements Serializable {
 	private String description;
 	
 	private String image;
+	
+	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
+	private List<Reservation> reservations = new ArrayList<>();
 }
