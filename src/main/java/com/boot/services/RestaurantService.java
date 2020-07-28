@@ -1,5 +1,9 @@
 package com.boot.services;
 
-public class RestaurantService {
+import com.boot.exceptions.RestaurantExeception;
+import com.boot.jsons.RestaurantRest;
 
+public interface RestaurantService {
+
+	RestaurantRest getRestaurantById(Long restaurantId) throws RestaurantExeception;
 }
