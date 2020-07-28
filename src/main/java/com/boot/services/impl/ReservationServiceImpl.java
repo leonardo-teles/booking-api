@@ -1,25 +1,34 @@
 package com.boot.services.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.boot.entities.Reservation;
 import com.boot.entities.Restaurant;
 import com.boot.entities.Turn;
+import com.boot.exceptions.InternalServerErrorException;
 import com.boot.exceptions.NotFoundException;
 import com.boot.exceptions.RestaurantExeception;
 import com.boot.jsons.CreateReservationRest;
 import com.boot.jsons.ReservationRest;
+import com.boot.repositories.ReservationRepository;
 import com.boot.repositories.RestaurantRepository;
 import com.boot.repositories.TurnRepository;
 import com.boot.services.ReservationService;
 
 public class ReservationServiceImpl implements ReservationService {
 	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
+	
 	@Autowired
 	private RestaurantRepository restaurantRepository;
 	
 	@Autowired
 	private TurnRepository turnRepository;
+	
+	@Autowired
+	private ReservationRepository reservationRepository;
 
 	public ReservationRest getReservation(Long reservationId) throws RestaurantExeception {
 		return null;
@@ -42,7 +51,14 @@ public class ReservationServiceImpl implements ReservationService {
 		reservation.setRestaurant(restaurantId);
 		reservation.setTurn(turnId.getName());
 		
-		return null;
+		try {
+			reservationRepository.save(reservation);
+		} catch (final Exception e) {
+			LOGGER.error("INTERNAL_SERVER_ERROR", e);
+			throw new InternalServerErrorException("INTERNAL_SERVER_ERROR", "INTERNAL_SERVER_ERROR");
+		}
+		
+		return locator;
 	}
 	
 	private String generateLocator(Restaurant restaurantId, CreateReservationRest createReservationRest) throws RestaurantExeception {
