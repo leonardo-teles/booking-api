@@ -1,5 +1,8 @@
 package com.boot.services.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +22,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 	
 	public RestaurantRest getRestaurantById(Long restaurantId) throws RestaurantExeception {
 		return modelMapper.map(getRestaurantEntity(restaurantId), RestaurantRest.class);
+	}
+	
+	@Override
+	public List<RestaurantRest> getRestaurants() throws RestaurantExeception {
+		final List<Restaurant> restaurantEntity = restaurantRepository.findAll();
+		
+		return restaurantEntity.stream().map(service -> modelMapper.map(service, RestaurantRest.class)).collect(Collectors.toList());
 	}
 	
 	private Restaurant getRestaurantEntity(Long restaurantId) throws RestaurantExeception {
