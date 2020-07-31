@@ -32,12 +32,10 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
-	@Override
 	public ReservationRest getReservation(Long reservationId) throws BookingException {
 		return null;
 	}
 
-	@Override
 	public String createReservation(CreateReservationRest createReservationRest) throws BookingException {
 		
 		final Restaurant restaurantId = restaurantRepository.findById(createReservationRest.getRestaurantId())
