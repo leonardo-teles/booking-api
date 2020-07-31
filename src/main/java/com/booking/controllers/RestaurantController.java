@@ -1,5 +1,7 @@
 package com.booking.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,5 +27,11 @@ public class RestaurantController {
 	@GetMapping(value = "restaurant" + "/{" + "restaurantId" + "}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public BookingResponse<RestaurantRest> getRestaurantById(@PathVariable Long restaurantId) throws BookingException {
 		return new BookingResponse<>("Success", String.valueOf(HttpStatus.OK), "OK", restaurantService.getRestaurantById(restaurantId));
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value = "restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
+	public BookingResponse<List<RestaurantRest>> getRestaurants() throws BookingException {
+		return new BookingResponse<>("Success", String.valueOf(HttpStatus.OK), "OK", restaurantService.getRestaurants());
 	}
 }
