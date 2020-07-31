@@ -3,6 +3,7 @@ package com.booking.services.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.booking.exceptions.BookingException;
 import com.booking.exceptions.InternalServerErrorException;
@@ -10,6 +11,7 @@ import com.booking.exceptions.NotFoundException;
 import com.booking.repositories.ReservationRepository;
 import com.booking.services.CancelReservationService;
 
+@Service
 public class CancelReservationServiceImpl implements CancelReservationService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CancelReservationServiceImpl.class);

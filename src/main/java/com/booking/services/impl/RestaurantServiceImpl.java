@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.booking.entities.Restaurant;
 import com.booking.exceptions.BookingException;
@@ -13,6 +14,7 @@ import com.booking.jsons.RestaurantRest;
 import com.booking.repositories.RestaurantRepository;
 import com.booking.services.RestaurantService;
 
+@Service
 public class RestaurantServiceImpl implements RestaurantService {
 
 	public static final ModelMapper MODEL_MAPPER = new ModelMapper();

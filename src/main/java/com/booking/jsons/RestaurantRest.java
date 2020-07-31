@@ -23,7 +23,7 @@ public class RestaurantRest {
 	@JsonProperty("image")
 	private String image;
 	
-	@JsonProperty("turn")
+	@JsonProperty("turns")
 	private List<TurnRest> turns;
 
 	public Long getId() {
