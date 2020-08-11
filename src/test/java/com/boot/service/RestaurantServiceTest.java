@@ -1,8 +1,12 @@
 package com.boot.service;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +22,7 @@ import com.booking.entities.Reservation;
 import com.booking.entities.Restaurant;
 import com.booking.entities.Turn;
 import com.booking.exceptions.BookingException;
+import com.booking.jsons.RestaurantRest;
 import com.booking.repositories.RestaurantRepository;
 import com.booking.services.impl.RestaurantServiceImpl;
 
@@ -68,6 +73,17 @@ public class RestaurantServiceTest {
 		
 		restaurantService.getRestaurantById(RESTAURANT_ID);
 		fail();
+	}
+	
+	@Test
+	public void getRestaurantsTest() throws BookingException {
+		final Restaurant restaurant = new Restaurant();
+		Mockito.when(restaurantRepository.findAll()).thenReturn(Arrays.asList(restaurant));
+		final List<RestaurantRest> response = restaurantService.getRestaurants();
+		
+		assertNotNull(response);
+		assertFalse(response.isEmpty());
+		assertEquals(response.size(), 1);
 	}
 	
 	
