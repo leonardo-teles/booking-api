@@ -33,6 +33,7 @@ public class RestaurantControllerTest {
 
 	public static final List<TurnRest> TURN_REST = new ArrayList<>();
 	public static final RestaurantRest RESTAURANT_REST = new RestaurantRest();
+	public static final List<RestaurantRest> RESTAURANT_REST_LIST = new ArrayList<>();
 	
 	@Mock
 	RestaurantService restaurantService;
@@ -62,5 +63,15 @@ public class RestaurantControllerTest {
 		assertEquals(response.getCode(), SUCCESS_CODE);
 		assertEquals(response.getMessage(), OK);
 		assertEquals(response.getData(), RESTAURANT_REST);
+	}
+	
+	@Test
+	public void getRestaurantsTest() throws BookingException {
+		final BookingResponse<List<RestaurantRest>> response = restaurantController.getRestaurants();
+		
+		assertEquals(response.getStatus(), SUCCESS_STATUS);
+		assertEquals(response.getCode(), SUCCESS_CODE);
+		assertEquals(response.getMessage(), OK);
+		assertEquals(response.getData(), RESTAURANT_REST_LIST);
 	}
 }
