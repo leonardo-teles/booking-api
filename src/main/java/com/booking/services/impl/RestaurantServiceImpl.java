@@ -27,7 +27,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 	}
 	
 	public List<RestaurantRest> getRestaurants() throws BookingException {
-		
 		final List<Restaurant> restaurantsEntity = restaurantRepository.findAll();
 		
 		return restaurantsEntity.stream().map(service -> MODEL_MAPPER.map(service, RestaurantRest.class)).collect(Collectors.toList());

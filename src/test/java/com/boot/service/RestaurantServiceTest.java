@@ -1,5 +1,7 @@
 package com.boot.service;
 
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,4 +61,37 @@ public class RestaurantServiceTest {
 		
 		restaurantService.getRestaurantById(RESTAURANT_ID);
 	}
+	
+	@Test(expected = BookingException.class)
+	public void getRestaurantByIdTestError() throws BookingException {
+		Mockito.when(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(Optional.empty());
+		
+		restaurantService.getRestaurantById(RESTAURANT_ID);
+		fail();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
