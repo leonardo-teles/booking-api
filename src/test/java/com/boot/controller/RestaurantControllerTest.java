@@ -45,6 +45,7 @@ public class RestaurantControllerTest {
 	public void init() throws BookingException {
 		MockitoAnnotations.initMocks(this);
 		
+		RESTAURANT_REST.setId(RESTAURANT_ID);
 		RESTAURANT_REST.setName(NAME);
 		RESTAURANT_REST.setDescription(DESCRIPTION);
 		RESTAURANT_REST.setAddress(ADDRES);
