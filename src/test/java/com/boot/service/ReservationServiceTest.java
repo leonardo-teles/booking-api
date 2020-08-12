@@ -1,5 +1,7 @@
 package com.boot.service;
 
+import static org.junit.Assert.fail;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,17 +33,16 @@ public class ReservationServiceTest {
 	private static final Long PERSON = 30L;
 	private static final Long TURN_ID = 5L;
 	
-	public static final Reservation RESERVATION = new Reservation();
-	
-	CreateReservationRest CREATE_RESERVATION_REST = new CreateReservationRest();
-	
 	private static final Restaurant RESTAURANT = new Restaurant();
-	private static final Turn TURN = new Turn();
-	
-	private static final List<Turn> TURN_LIST = new ArrayList<>();
 	private static final Optional<Restaurant> OPTIONAL_RESTAURANT = Optional.of(RESTAURANT);
+	private static final Optional<Restaurant> OPTIONAL_RESTAURANT_EMPTY = Optional.empty();
+
+	private static final Turn TURN = new Turn();
+	private static final List<Turn> TURN_LIST = new ArrayList<>();
 	private static final Optional<Turn> OPTIONAL_TURN = Optional.of(TURN);
 	
+	CreateReservationRest CREATE_RESERVATION_REST = new CreateReservationRest();
+	public static final Reservation RESERVATION = new Reservation();
 	private static final Optional<Reservation> OPTIONAL_RESERVATION_EMPTY = Optional.empty();
 	
 	@Mock
@@ -87,6 +88,14 @@ public class ReservationServiceTest {
 		Mockito.when(reservationRepository.save(Mockito.any(Reservation.class))).thenReturn(new Reservation());
 		
 		reservationService.createReservation(CREATE_RESERVATION_REST);
+	}
+	
+	@Test(expected = BookingException.class)
+	public void createReservationRestaurantFindByIdTestError() throws BookingException {
+		Mockito.when(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(OPTIONAL_RESTAURANT_EMPTY);
+		
+		reservationService.createReservation(CREATE_RESERVATION_REST);
+		fail();	
 	}
 	
 }
