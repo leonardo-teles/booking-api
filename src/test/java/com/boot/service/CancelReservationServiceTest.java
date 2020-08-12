@@ -1,5 +1,6 @@
 package com.boot.service;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class CancelReservationServiceTest {
 	
 	private static final Reservation RESERVATION = new Reservation();
 	
+	private static final Optional<Reservation> OPTIONAL_RESERVATION_EMPTY = Optional.empty();
 	private static final Optional<Reservation> OPTIONAL_RESERVATION = Optional.of(RESERVATION);
 
 	@Mock
@@ -43,5 +45,25 @@ public class CancelReservationServiceTest {
 		
 		final String response = cancelReservationService.deleteReservation(LOCATOR);
 		assertEquals(response, RESERVATION_DELETED);
+	}
+	
+	@Test(expected = BookingException.class)
+	public void deleteReservationNotFoundErrorTest() throws BookingException {
+		Mockito.when(reservationRepository.findByLocator(LOCATOR)).thenReturn(OPTIONAL_RESERVATION_EMPTY);
+		Mockito.when(reservationRepository.deleteByLocator(LOCATOR)).thenReturn(OPTIONAL_RESERVATION);
+		
+		final String response = cancelReservationService.deleteReservation(LOCATOR);
+		assertEquals(response, RESERVATION_DELETED);
+		fail();
+	}
+
+	@Test(expected = BookingException.class)
+	public void deleteReservationINternalServerErrorTest() throws BookingException {
+		Mockito.when(reservationRepository.findByLocator(LOCATOR)).thenReturn(OPTIONAL_RESERVATION);
+		Mockito.doThrow(Exception.class).when(reservationRepository).deleteByLocator(LOCATOR);
+		
+		final String response = cancelReservationService.deleteReservation(LOCATOR);
+		assertEquals(response, RESERVATION_DELETED);
+		fail();
 	}
 }
