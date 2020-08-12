@@ -67,6 +67,12 @@ public class ReservationControllerTest {
 	
 	@Test
 	public void createReservationTest() throws BookingException {
+		BookingResponse<String> response = reservationController.createReservation(CREATE_RESERVATION_REST);
 		
+		assertEquals(response.getStatus(), SUCCESS_STATUS);
+		assertEquals(response.getCode(), SUCCESS_CODE);
+		assertEquals(response.getMessage(), OK);
+		assertEquals(response.getData(), LOCATOR);
+
 	}
 }
