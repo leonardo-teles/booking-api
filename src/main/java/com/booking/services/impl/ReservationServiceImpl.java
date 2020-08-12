@@ -1,5 +1,6 @@
 package com.booking.services.impl;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ import com.booking.services.ReservationService;
 public class ReservationServiceImpl implements ReservationService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(ReservationServiceImpl.class);
+	
+	public static final ModelMapper MODEL_MAPPER = new ModelMapper();
 
 	@Autowired
 	private RestaurantRepository restaurantRepository;
@@ -32,8 +35,8 @@ public class ReservationServiceImpl implements ReservationService {
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
-	public ReservationRest getReservation(Long reservationId) throws BookingException {
-		return null;
+	public ReservationRest getReservationById(Long reservationId) throws BookingException {
+		return MODEL_MAPPER.map(getReservationEntity(reservationId), ReservationRest.class);
 	}
 
 	public String createReservation(CreateReservationRest createReservationRest) throws BookingException {
@@ -67,4 +70,9 @@ public class ReservationServiceImpl implements ReservationService {
 	private String generateLocator(Restaurant restaurantId, CreateReservationRest createReservationRest) throws BookingException {
 		return restaurantId.getName() + createReservationRest.getTurnId();
 	}
+	
+	private Reservation getReservationEntity(Long reservationId) throws BookingException {
+		return reservationRepository.findById(reservationId).orElseThrow(() -> new NotFoundException("SNOT-404-1", "RESERVATION_NOT_FOUND"));
+	}
+	
 }

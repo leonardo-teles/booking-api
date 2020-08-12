@@ -6,7 +6,7 @@ import com.booking.jsons.ReservationRest;
 
 public interface ReservationService {
 
-	ReservationRest getReservation(Long reservationId) throws BookingException;
+	ReservationRest getReservationById(Long reservationId) throws BookingException;
 	
 	String createReservation(CreateReservationRest createReservationRest) throws BookingException;
 }
