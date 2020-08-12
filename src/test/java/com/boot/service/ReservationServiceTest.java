@@ -42,6 +42,8 @@ public class ReservationServiceTest {
 	private static final Optional<Restaurant> OPTIONAL_RESTAURANT = Optional.of(RESTAURANT);
 	private static final Optional<Turn> OPTIONAL_TURN = Optional.of(TURN);
 	
+	private static final Optional<Reservation> OPTIONAL_RESERVATION_EMPTY = Optional.empty();
+	
 	@Mock
 	private RestaurantRepository restaurantRepository;
 	
@@ -62,6 +64,7 @@ public class ReservationServiceTest {
 		RESTAURANT.setTurns(TURN_LIST);
 		
 		TURN.setId(TURN_ID);
+		TURN.setRestaurant(RESTAURANT);
 		
 		CREATE_RESERVATION_REST.setDate(DATE);
 		CREATE_RESERVATION_REST.setPerson(PERSON);
@@ -80,6 +83,8 @@ public class ReservationServiceTest {
 	public void createReservationTest() throws BookingException {
 		Mockito.when(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(OPTIONAL_RESTAURANT);
 		Mockito.when(turnRepository.findById(TURN_ID)).thenReturn(OPTIONAL_TURN);
+		Mockito.when(reservationRepository.findByTurnAndRestaurantId(TURN.getName(), RESTAURANT.getId())).thenReturn(OPTIONAL_RESERVATION_EMPTY);
+		Mockito.when(reservationRepository.save(Mockito.any(Reservation.class))).thenReturn(new Reservation());
 		
 		reservationService.createReservation(CREATE_RESERVATION_REST);
 	}
