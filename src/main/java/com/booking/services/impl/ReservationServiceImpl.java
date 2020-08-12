@@ -12,6 +12,7 @@ import com.booking.entities.Turn;
 import com.booking.exceptions.BookingException;
 import com.booking.exceptions.InternalServerErrorException;
 import com.booking.exceptions.NotFoundException;
+import com.booking.exceptions.ResourceAlreadyExistsException;
 import com.booking.jsons.CreateReservationRest;
 import com.booking.jsons.ReservationRest;
 import com.booking.repositories.ReservationRepository;
@@ -46,6 +47,10 @@ public class ReservationServiceImpl implements ReservationService {
 
 		final Turn turn = turnRepository.findById(createReservationRest.getTurnId())
 				.orElseThrow(() -> new NotFoundException("TURN_NOT_FOUND", "TURN_NOT_FOUND")); 
+		
+		if (reservationRepository.findByTurnAndRestaurantId(turn.getName(), restaurantId.getId()).isPresent()) {
+			throw new ResourceAlreadyExistsException("RESERVATION_ALREADY_EXISTS", "RESERVATION_ALREADY_EXISTS");
+		}
 		
 		String locator = generateLocator(restaurantId, createReservationRest);
 		
