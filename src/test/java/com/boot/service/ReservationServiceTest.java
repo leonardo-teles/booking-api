@@ -40,6 +40,7 @@ public class ReservationServiceTest {
 	private static final Turn TURN = new Turn();
 	private static final List<Turn> TURN_LIST = new ArrayList<>();
 	private static final Optional<Turn> OPTIONAL_TURN = Optional.of(TURN);
+	private static final Optional<Turn> OPTIONAL_TURN_EMPTY = Optional.empty();
 	
 	CreateReservationRest CREATE_RESERVATION_REST = new CreateReservationRest();
 	public static final Reservation RESERVATION = new Reservation();
@@ -98,4 +99,12 @@ public class ReservationServiceTest {
 		fail();	
 	}
 	
+	@Test(expected = BookingException.class)
+	public void createReservationTurnFindByIdTestError() throws BookingException {
+		Mockito.when(restaurantRepository.findById(RESTAURANT_ID)).thenReturn(OPTIONAL_RESTAURANT);
+		Mockito.when(turnRepository.findById(TURN_ID)).thenReturn(OPTIONAL_TURN_EMPTY);
+		
+		reservationService.createReservation(CREATE_RESERVATION_REST);
+		fail();	
+	}
 }
