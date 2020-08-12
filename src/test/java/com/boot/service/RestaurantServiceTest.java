@@ -38,13 +38,12 @@ public class RestaurantServiceTest {
 	public static final List<Turn> TURN_REST = new ArrayList<>();
 	public static final List<Board> BOARD_REST = new ArrayList<>();
 	public static final List<Reservation> RESERVATION_REST = new ArrayList<>();
-
 	
 	@Mock
-	RestaurantRepository restaurantRepository;
+	private RestaurantRepository restaurantRepository;
 	
 	@InjectMocks
-	RestaurantServiceImpl restaurantService;
+	private RestaurantServiceImpl restaurantService;
 	
 	@Before
 	public void init() throws BookingException {
@@ -85,29 +84,5 @@ public class RestaurantServiceTest {
 		assertFalse(response.isEmpty());
 		assertEquals(response.size(), 1);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }
